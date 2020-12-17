@@ -14,17 +14,13 @@ import static org.assertj.core.api.Assertions.*;
 @SpringBootTest
 public class OutputPacketTests {
 
-    @BeforeTestExecution
-    public void setUp() {
-        RobotCommand.addInstruction(new LeftInstruction());
-        RobotCommand.addInstruction(new RightInstruction());
-        RobotCommand.addInstruction(new ForwardInstruction());
-    }
-
     @Test
     void validate_output_string() {
         // given
-        GridExtent extent = new GridExtent(3, 5);
+        RobotCommand.addInstruction(new LeftInstruction());
+        RobotCommand.addInstruction(new RightInstruction());
+        RobotCommand.addInstruction(new ForwardInstruction());
+        GridExtent extent = new GridExtent(5, 3);
         ArrayList<RobotState> robotStates = new ArrayList<>();
         assertThatCode(() -> {
             robotStates.add(new RobotState("1 1 E", extent));

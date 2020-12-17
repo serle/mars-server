@@ -45,6 +45,10 @@ public class RobotState {
         return orientation;
     }
 
+    public boolean isLost() {
+        return isLost;
+    }
+
     //return the output string e.g.
     // 1) not lost:   "1 1 E"
     // 2) lost:       "3 3 N LOST"

@@ -15,7 +15,7 @@ public class RobotStateTests {
     void parse_valid_robot_state_string() {
         // given
         String stateString = "1 1 E";
-        GridExtent extent = new GridExtent(3, 5);
+        GridExtent extent = new GridExtent(5, 3);
 
         //then
         assertThatCode(() -> {
@@ -29,7 +29,7 @@ public class RobotStateTests {
     void parse_invalid_robot_orientation() {
         // given
         String stateString = "1 1 F";
-        GridExtent extent = new GridExtent(3, 5);
+        GridExtent extent = new GridExtent(5, 3);
 
         //then
         assertThatExceptionOfType(InputParseException.class).isThrownBy(() -> new RobotState(stateString, extent));
@@ -40,7 +40,7 @@ public class RobotStateTests {
     void parse_invalid_robot_coordinates() {
         // given
         String stateString = "-1 20 E";
-        GridExtent extent = new GridExtent(3, 5);
+        GridExtent extent = new GridExtent(5, 3);
 
         //then
         assertThatExceptionOfType(InputParseException.class).isThrownBy(() -> new RobotState(stateString, extent));

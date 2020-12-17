@@ -61,12 +61,6 @@ public class GridExtentTests {
                 .withMessage("%s", "X grid extent coordinate out of range, should be in [0;50]");
     }
 
-
-
-
-
-
-
     @Test
     void invalid_y_coordinate() {
         // given
@@ -101,13 +95,33 @@ public class GridExtentTests {
     @Test
     void grid_extent_is_valid() {
         // given
-        String extentStr = "3 5";
+        int x = 3;
+        int y = 5;
+        GridExtent ge = new GridExtent(3, 5);
 
-        assertThatCode(() -> {
-            GridExtent ge = new GridExtent(extentStr);
-            assertThat(ge.getMaxX()).isEqualTo(3);
-            assertThat(ge.getMaxY()).isEqualTo(5);
-        }).doesNotThrowAnyException();
+        //then
+        assertThat(ge.isOnGrid(x, y)).isTrue();
+    }
 
+    @Test
+    void throws_when_position_greater_than_max() {
+        // given
+        int x = 10;
+        int y = 5;
+        GridExtent ge = new GridExtent(3, 5);
+
+        //then
+        assertThat(ge.isOnGrid(x, y)).isFalse();
+    }
+
+    @Test
+    void throws_when_position_less_than_min() {
+        // given
+        int x = 3;
+        int y = -5;
+        GridExtent ge = new GridExtent(5, 3);
+
+        //then
+        assertThat(ge.isOnGrid(x, y)).isFalse();
     }
 }

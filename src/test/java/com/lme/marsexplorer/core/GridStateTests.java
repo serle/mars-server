@@ -18,7 +18,7 @@ public class GridStateTests {
 
         // then
         assertThatCode(() -> {
-            GridState ge = new GridState(extentStr);
+            GridState gridState = new GridState(extentStr);
         }).doesNotThrowAnyException();
     }
 
@@ -29,8 +29,37 @@ public class GridStateTests {
 
         // then
         assertThatCode(() -> {
-            GridState gs = new GridState(extentStr);
-            assertThat(gs.toString()).isEqualTo("{\n  Extent: 3 5\n  Smells: [  ]\n}");
+            GridState gridState = new GridState(extentStr);
+            assertThat(gridState.toString()).isEqualTo("{\n  Extent: 3 5\n  Smells: [  ]\n}");
+        }).doesNotThrowAnyException();
+    }
+
+
+    @Test
+    void add_valid_grid_smell() {
+        // given
+        String extentStr = "5 3";
+
+        // then
+        assertThatCode(() -> {
+            GridState gridState = new GridState(extentStr);
+            gridState.addSmellAt(1, 1);
+            gridState.addSmellAt(2, 2);
+            assertThat(gridState.toString()).isEqualTo("{\n  Extent: 5 3\n  Smells: [(1 1), (2 2),   ]\n}");
+        }).doesNotThrowAnyException();
+    }
+
+    @Test
+    void add_invalid_grid_smell() {
+        // given
+        String extentStr = "5 3";
+
+        // then
+        assertThatCode(() -> {
+            GridState gridState = new GridState(extentStr);
+            gridState.addSmellAt(-1, 0);
+            gridState.addSmellAt(6, 2);
+            assertThat(gridState.toString()).isEqualTo("{\n  Extent: 5 3\n  Smells: [  ]\n}");
         }).doesNotThrowAnyException();
     }
 }

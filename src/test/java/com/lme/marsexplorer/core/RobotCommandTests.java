@@ -55,13 +55,13 @@ public class RobotCommandTests {
         // given
         String firstLine = "1 1 E";
         String secondLine = "RFRFRFRF";
-        GridExtent extent = new GridExtent(3, 5);
+        GridState gridState = new GridState(5, 3);
         RobotCommand.addInstruction(new RightInstruction());
         RobotCommand.addInstruction(new ForwardInstruction());
 
         //then
         assertThatCode(() -> {
-            RobotCommand command = new RobotCommand(firstLine, secondLine, extent);
+            RobotCommand command = new RobotCommand(firstLine, secondLine, gridState);
             assertThat(command.toString()).isEqualTo("1 1 E\nRFRFRFRF\n");
         }).doesNotThrowAnyException();
     }
@@ -71,43 +71,82 @@ public class RobotCommandTests {
         // given
         String firstLine = "1 1 E";
         String secondLine = "RFRFRFRF";
-        GridExtent extent = new GridExtent(3, 5);
+        GridState gridState = new GridState(5, 3);
         RobotCommand.addInstruction(new RightInstruction());
         RobotCommand.removeInstruction('F');
 
         //then
-        assertThatExceptionOfType(InputParseException.class).isThrownBy(() -> new RobotCommand(firstLine, secondLine, extent));
+        assertThatExceptionOfType(InputParseException.class).isThrownBy(() -> new RobotCommand(firstLine, secondLine, gridState));
     }
 
 
     @Test
     void parse_empty_instruction_string() {
         // given
-        String firstLine = "1 1 E";
-        String secondLine = "";
-        GridExtent extent = new GridExtent(3, 5);
         RobotCommand.addInstruction(new LeftInstruction());
         RobotCommand.addInstruction(new RightInstruction());
         RobotCommand.addInstruction(new ForwardInstruction());
 
+        String firstLine = "1 1 E";
+        String secondLine = "";
+        GridState gridState = new GridState(5, 3);
+
         //then
-        assertThatExceptionOfType(InputParseException.class).isThrownBy(() -> new RobotCommand(firstLine, secondLine, extent))
+        assertThatExceptionOfType(InputParseException.class).isThrownBy(() -> new RobotCommand(firstLine, secondLine, gridState))
                 .withMessage("%s", "No instruction string");
     }
 
     @Test
     void parse_instruction_string_exceeds_maximum_length() {
         // given
-        String firstLine = "1 1 E";
-        String secondLine = this.createString(110, 'R');
-        GridExtent extent = new GridExtent(3, 5);
         RobotCommand.addInstruction(new LeftInstruction());
         RobotCommand.addInstruction(new RightInstruction());
         RobotCommand.addInstruction(new ForwardInstruction());
 
+        String firstLine = "1 1 E";
+        String secondLine = this.createString(110, 'R');
+        GridState gridState = new GridState(5, 3);
+
         //then
-        assertThatExceptionOfType(InputParseException.class).isThrownBy(() -> new RobotCommand(firstLine, secondLine, extent))
+        assertThatExceptionOfType(InputParseException.class).isThrownBy(() -> new RobotCommand(firstLine, secondLine, gridState))
                 .withMessage("%s", "Instruction string length exceeded");
     }
 
+    @Test
+    void instruction_execution_continues_while_on_grid() {
+        // given
+        RobotCommand.addInstruction(new LeftInstruction());
+        RobotCommand.addInstruction(new RightInstruction());
+        RobotCommand.addInstruction(new ForwardInstruction());
+
+        String firstLine = "1 1 E";
+        String secondLine = "RFRFRFRF";
+        GridState gridState = new GridState(5, 3);
+
+        //then
+        assertThatCode(() -> {
+            RobotCommand command = new RobotCommand(firstLine, secondLine, gridState);
+            RobotState robotState = command.execute(gridState);
+            assertThat(robotState.toString()).isEqualTo("1 1 E");
+        }).doesNotThrowAnyException();
+    }
+
+    @Test
+    void instruction_execution_stops_if_lost() {
+        // given
+        RobotCommand.addInstruction(new LeftInstruction());
+        RobotCommand.addInstruction(new RightInstruction());
+        RobotCommand.addInstruction(new ForwardInstruction());
+
+        String firstLine = "3 2 N";
+        String secondLine = "FRRFLLFFRRFLL";
+        GridState gridState = new GridState(5, 3);
+
+        //then
+        assertThatCode(() -> {
+            RobotCommand command = new RobotCommand(firstLine, secondLine, gridState);
+            RobotState robotState = command.execute(gridState);
+            assertThat(robotState.toString()).isEqualTo("3 3 N LOST");
+        }).doesNotThrowAnyException();
+    }
 }

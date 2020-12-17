@@ -57,8 +57,8 @@ class RobotCommand {
 
     //first line (position/orientation): "1 1 E"
     //second line (robot instructions): "RFRFRF"
-    public RobotCommand(String firstLine, String secondLine, GridExtent extent) throws InputParseException {
-        this.initialState = new RobotState(firstLine, extent);
+    public RobotCommand(String firstLine, String secondLine, GridState gridState) throws InputParseException {
+        this.initialState = new RobotState(firstLine, gridState.getExtent());
         this.instructions = RobotCommand.toInstructionSequence(secondLine);
     }
 
@@ -69,6 +69,11 @@ class RobotCommand {
         for (Character token: this.instructions) {
             Instruction instruction = RobotCommand.instructionMap.get(token);
             robotState = instruction.process(gridState, robotState);
+
+            //if the robot is lost, stop processing immediately
+            if (robotState.isLost()) {
+                return robotState;
+            }
         }
         return robotState;
     }

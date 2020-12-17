@@ -11,7 +11,6 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 @SpringBootTest
 public class PositionTests {
 
-
     @Test
     void parse_valid_position_string() {
         // given
@@ -39,41 +38,15 @@ public class PositionTests {
     @Test
     void create_valid_position() {
         // given
-        int x = 3;
-        int y = 5;
-        GridExtent ge = new GridExtent(3, 5);
+        int x = 5;
+        int y = 3;
 
         //then
         assertThatCode(() -> {
-            Position p = new Position(x, y, ge);
-            assertThat(p.getX()).isEqualTo(3);
-            assertThat(p.getY()).isEqualTo(5);
+            Position p = new Position(x, y);
+            assertThat(p.getX()).isEqualTo(x);
+            assertThat(p.getY()).isEqualTo(y);
         }).doesNotThrowAnyException();
     }
 
-    @Test
-    void throws_when_position_greater_than_max() {
-        // given
-        int x = 10;
-        int y = 5;
-        GridExtent ge = new GridExtent(3, 5);
-
-        //then
-        assertThatExceptionOfType(InvalidPositionException.class).isThrownBy(() -> new Position(x, y, ge))
-                .withMessage("%s", "X coordinate out of bounds");
-
-    }
-
-    @Test
-    void throws_when_position_less_than_min() {
-        // given
-        int x = 3;
-        int y = -5;
-        GridExtent ge = new GridExtent(3, 5);
-
-        //then
-        assertThatExceptionOfType(InvalidPositionException.class).isThrownBy(() -> new Position(x, y, ge))
-                .withMessage("%s", "Y coordinate out of bounds");
-
-    }
 }

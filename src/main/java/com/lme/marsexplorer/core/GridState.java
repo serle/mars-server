@@ -23,6 +23,11 @@ public class GridState {
         this.smells = new HashSet<>();
     }
 
+    GridState(int maxX, int maxY) {
+        this.extent = new GridExtent(maxX, maxY);
+        this.smells = new HashSet<>();
+    }
+
     public GridExtent getExtent() {
         return extent;
     }
@@ -32,7 +37,9 @@ public class GridState {
     }
 
     public void addSmellAt(int x, int y) {
-        smells.add(new Position(x, y));
+        if (extent.isOnGrid(x, y)) {
+            smells.add(new Position(x, y));
+        }
     }
 
     public boolean isSmellAt(int x, int y) {
@@ -51,7 +58,9 @@ public class GridState {
 
         sb.append("  Smells: [");
         for (Position smell : smells) {
+            sb.append("(");
             sb.append(smell.toString());
+            sb.append(")");
             sb.append(", ");
         }
         //sb.deleteCharAt(sb.lastIndexOf(", "));

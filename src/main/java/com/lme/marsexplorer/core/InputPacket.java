@@ -20,7 +20,7 @@ public class InputPacket {
         while (line_num + 1 < lines.length) {
             try {
                 //consume two lines of input and create the associates robot command
-                RobotCommand command = new RobotCommand(lines[line_num].toString(), lines[line_num + 1].toString(), gridState.extent);
+                RobotCommand command = new RobotCommand(lines[line_num].toString(), lines[line_num + 1].toString(), gridState);
                 //add the new command into the array list
                 this.robotCommands.add(command);
 
@@ -56,7 +56,7 @@ public class InputPacket {
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        sb.append(gridState.extent.toString());
+        sb.append(gridState.getExtent().toString());
         sb.append("\n");
 
         for (RobotCommand command : robotCommands) {
