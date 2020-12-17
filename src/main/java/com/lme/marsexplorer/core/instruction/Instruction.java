@@ -1,5 +1,7 @@
 package com.lme.marsexplorer.core.instruction;
 
+import com.lme.marsexplorer.core.GridState;
+import com.lme.marsexplorer.core.ProcessingException;
 import com.lme.marsexplorer.core.RobotState;
 
 public interface Instruction {
@@ -7,5 +9,5 @@ public interface Instruction {
     char getToken();
 
     //given the current state and an instruction token, return the next state
-    RobotState process(RobotState state, char instruction);
+    RobotState process(GridState gridState, RobotState robotState) throws ProcessingException;
 }
