@@ -45,7 +45,15 @@ class RobotCommand {
     }
 
     static public String getInstructionSet() {
-        return instructionMap.keySet().toString();
+        StringBuilder sb = new StringBuilder();
+        for (char key : instructionMap.keySet()) {
+            sb.append("\"");
+            sb.append(key);
+            sb.append("\"");
+            sb.append(", ");
+        }
+        sb.deleteCharAt(sb.lastIndexOf(", "));
+        return "[" + sb.toString().trim() + "]";
     }
 
     //------------------------------------------------------------------------------------------------------------------

@@ -14,7 +14,7 @@ public class PlanetTests {
         Planet.addInstructions();
 
         // then
-        assertThat(Planet.getInstructionSet()).isEqualTo("[R, F, L]");
+        assertThat(Planet.getInstructionSet()).isEqualTo("[\"R\", \"F\", \"L\"]");
     }
 
     @Test
