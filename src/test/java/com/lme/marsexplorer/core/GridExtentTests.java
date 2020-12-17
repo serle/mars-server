@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 
@@ -97,7 +96,7 @@ public class GridExtentTests {
         // given
         int x = 3;
         int y = 5;
-        GridExtent ge = new GridExtent(3, 5);
+        GridExtent ge = new GridExtent(5, 3);
 
         //then
         assertThat(ge.isOnGrid(x, y)).isTrue();
@@ -108,7 +107,7 @@ public class GridExtentTests {
         // given
         int x = 10;
         int y = 5;
-        GridExtent ge = new GridExtent(3, 5);
+        GridExtent ge = new GridExtent(5, 3);
 
         //then
         assertThat(ge.isOnGrid(x, y)).isFalse();

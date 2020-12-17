@@ -46,6 +46,9 @@ class GridState {
         return smells.contains(new Position(x, y));
     }
 
+    public boolean isSmellAt(Position position) {
+        return smells.contains(position);
+    }
 
     public String toString() {
         StringBuilder sb = new StringBuilder();

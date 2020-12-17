@@ -9,6 +9,11 @@ public class Planet {
         RobotCommand.addInstruction(new ForwardInstruction());
     }
 
+    public static String getInstructionSet() {
+        return RobotCommand.getInstructionSet();
+    }
+
+
     public static String execute(String command) throws InputParseException, ProcessingException {
         //parse the command string into its internal representation
         InputPacket input = new InputPacket(command);

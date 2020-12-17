@@ -144,4 +144,26 @@ public class RobotCommandTests {
             assertThat(robotState.toString()).isEqualTo("3 3 N LOST");
         }).doesNotThrowAnyException();
     }
+
+    @Test
+    void it_stays_put_when_there_is_a_smell() {
+        // given
+        RobotCommand.addInstruction(new LeftInstruction());
+        RobotCommand.addInstruction(new RightInstruction());
+        RobotCommand.addInstruction(new ForwardInstruction());
+
+        String firstLine = "0 3 W";
+        String secondLine = "LLFFFLFLFL";
+        GridState gridState = new GridState(5, 3);
+        gridState.addSmellAt(3, 3);
+
+        //then
+        assertThatCode(() -> {
+            RobotCommand command = new RobotCommand(firstLine, secondLine, gridState);
+            RobotState robotState = command.execute(gridState);
+            assertThat(robotState.toString()).isEqualTo("2 3 S");
+        }).doesNotThrowAnyException();
+    }
+
+
 }

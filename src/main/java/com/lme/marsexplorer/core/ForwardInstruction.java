@@ -6,6 +6,7 @@ public class ForwardInstruction implements Instruction{
     public RobotState process(GridState gridState, RobotState robotState)  throws ProcessingException {
         Position position = robotState.getPosition();
         Orientation orientation = robotState.getOrientation();
+        boolean isSmelly = gridState.isSmellAt(position);
 
         int x = position.getX();
         int y = position.getY();
@@ -24,17 +25,18 @@ public class ForwardInstruction implements Instruction{
                 break;
         }
 
-        if (gridState.isSmellAt(x, y)) {
-            //do nothing
-            return robotState;
-        }
-        else if (gridState.isOnGrid(x, y)) {
+        if (gridState.isOnGrid(x, y)) {
             //move forward
             return new RobotState(x, y, orientation, false);
         }
+        else if (gridState.isSmellAt(position)) {
+            //there is already a smell at the current position
+            return robotState;
+        }
         else {
-            //add the smell, and return null
-            gridState.addSmellAt(x, y);
+            //no smell at the current position, so add the smell at the current position
+            gridState.addSmellAt(position.getX(), position.getY());
+            //return a robot state with the current position and a lost flag
             return new RobotState(position, orientation, true);
         }
     }
