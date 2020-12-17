@@ -1,11 +1,14 @@
 package com.lme.marsexplorer.core;
 
 class GridExtent {
-    static int MIN_EXTENT = 0;
-    static int MAX_EXTENT = 50;
+    private static int MIN_EXTENT = 0;
+    private static int MAX_EXTENT = 50;
 
-    int max_x;
-    int max_y;
+    //preventative measure if allowed to be non-zero in future
+    private int min_x;
+    private int min_y;
+    private int max_x;
+    private int max_y;
 
     //receives input string: "5 3", should set max_x = 5, max_y = 3 and throw an exception if max_x | max_y > 50
     GridExtent(String extentStr) throws InputParseException {
@@ -13,6 +16,10 @@ class GridExtent {
 
         String[] extentArr = extentStr.split(" ");
         if (extentArr.length != 2) throw new InputParseException("Grid Extent should contain two integers");
+
+        //constants
+        this.min_x = MIN_EXTENT;
+        this.min_y = MIN_EXTENT;
 
         //set the max_x extent if its valid
         try {
