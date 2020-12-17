@@ -1,5 +1,7 @@
 package com.lme.marsexplorer.core;
 
+import java.util.Objects;
+
 public class RobotState {
     public boolean isLost;
     public Position position;
@@ -7,12 +9,21 @@ public class RobotState {
 
     //stateStr: "1 1 E", check if positions within bounds
     public RobotState(String stateStr, GridExtent extent) throws InputParseException {
+        if (stateStr == null || stateStr.isEmpty()) throw new InputParseException("No Robot State");
 
+        String[] stateArr = stateStr.split(" ");
+        if (stateArr.length != 3) throw new InputParseException("Robot State should contain 2 coordinates and 1 orientation");
+
+        this.isLost = false;
+        this.position = new Position(stateArr[0] + " " + stateArr[1], extent);
+        this.orientation = Orientation.toOrientation(stateArr[2]);
     }
 
     //used by processors to create the next state
     public RobotState(Position position, Orientation orientation, boolean isLost) {
-
+        this.isLost = isLost;
+        this.position = position;
+        this.orientation = orientation;
     }
 
     //return the output string e.g.
@@ -25,5 +36,20 @@ public class RobotState {
         else {
             return String.format("%d %d %s", position.getX(), position.getY(), orientation.toString());
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof RobotState)) return false;
+        RobotState that = (RobotState) o;
+        return isLost == that.isLost &&
+                position.equals(that.position) &&
+                orientation == that.orientation;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(isLost, position, orientation);
     }
 }

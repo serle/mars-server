@@ -32,8 +32,7 @@ public class RobotStateTests {
         GridExtent extent = new GridExtent(3, 5);
 
         //then
-        assertThatExceptionOfType(InvalidPositionException.class).isThrownBy(() -> new RobotState(stateString, extent))
-                .withMessage("%s", "Invalid robot orientation");
+        assertThatExceptionOfType(InputParseException.class).isThrownBy(() -> new RobotState(stateString, extent));
 
     }
 
@@ -46,7 +45,4 @@ public class RobotStateTests {
         //then
         assertThatExceptionOfType(InputParseException.class).isThrownBy(() -> new RobotState(stateString, extent));
     }
-
-
-
 }
