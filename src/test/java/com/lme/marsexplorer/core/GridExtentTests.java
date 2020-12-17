@@ -105,8 +105,8 @@ public class GridExtentTests {
 
         assertThatCode(() -> {
             GridExtent ge = new GridExtent(extentStr);
-            assertThat(ge.max_x).isEqualTo(3);
-            assertThat(ge.max_y).isEqualTo(5);
+            assertThat(ge.getMaxX()).isEqualTo(3);
+            assertThat(ge.getMaxY()).isEqualTo(5);
         }).doesNotThrowAnyException();
 
     }
