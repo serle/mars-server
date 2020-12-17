@@ -9,7 +9,7 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 
 @SpringBootTest
-public class PositionTest {
+public class PositionTests {
 
     @Test
     void create_valid_position() {
