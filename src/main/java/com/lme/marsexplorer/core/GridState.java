@@ -14,7 +14,7 @@ import java.util.HashSet;
     scalability, this would be a more efficient data structure to pass around.
 
  */
-public class GridState {
+class GridState {
     private GridExtent extent;
     private HashSet<Position> smells;
 

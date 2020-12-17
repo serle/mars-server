@@ -1,9 +1,5 @@
 package com.lme.marsexplorer.core;
 
-import com.lme.marsexplorer.core.instruction.ForwardInstruction;
-import com.lme.marsexplorer.core.instruction.LeftInstruction;
-import com.lme.marsexplorer.core.instruction.RightInstruction;
-
 import java.util.ArrayList;
 
 public class Planet {

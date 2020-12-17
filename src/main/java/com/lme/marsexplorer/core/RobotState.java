@@ -2,7 +2,7 @@ package com.lme.marsexplorer.core;
 
 import java.util.Objects;
 
-public class RobotState {
+class RobotState {
     private boolean isLost;
     private Position position;
     private Orientation orientation;

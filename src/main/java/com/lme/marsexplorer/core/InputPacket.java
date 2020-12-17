@@ -2,7 +2,7 @@ package com.lme.marsexplorer.core;
 
 import java.util.ArrayList;
 
-public class InputPacket {
+class InputPacket {
     private GridState gridState;
     private ArrayList<RobotCommand> robotCommands = new ArrayList<>();
 

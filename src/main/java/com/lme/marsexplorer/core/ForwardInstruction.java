@@ -1,6 +1,4 @@
-package com.lme.marsexplorer.core.instruction;
-
-import com.lme.marsexplorer.core.*;
+package com.lme.marsexplorer.core;
 
 public class ForwardInstruction implements Instruction{
     private char token = 'F';

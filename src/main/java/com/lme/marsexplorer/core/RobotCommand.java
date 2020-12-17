@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.stream.Collectors;
 
-import com.lme.marsexplorer.core.instruction.Instruction;
-
 
 class RobotCommand {
     static private int MAX_INSTRUCTIONS_LENGTH = 100;

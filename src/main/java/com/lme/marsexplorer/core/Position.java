@@ -2,7 +2,7 @@ package com.lme.marsexplorer.core;
 
 import java.util.Objects;
 
-public class Position {
+class Position {
     private int x;
     private int y;
 

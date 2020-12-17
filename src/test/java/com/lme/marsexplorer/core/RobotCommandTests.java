@@ -6,11 +6,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
-import com.lme.marsexplorer.core.instruction.ForwardInstruction;
-import com.lme.marsexplorer.core.instruction.LeftInstruction;
-import com.lme.marsexplorer.core.instruction.RightInstruction;
-
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 

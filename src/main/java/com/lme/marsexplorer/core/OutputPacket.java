@@ -2,7 +2,7 @@ package com.lme.marsexplorer.core;
 
 import java.util.ArrayList;
 
-public class OutputPacket {
+class OutputPacket {
     private ArrayList<RobotState> robotStates;
 
     OutputPacket(ArrayList<RobotState> robotStates) {

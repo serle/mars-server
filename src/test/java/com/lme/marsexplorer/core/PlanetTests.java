@@ -1,15 +1,7 @@
 package com.lme.marsexplorer.core;
 
-import com.lme.marsexplorer.core.instruction.ForwardInstruction;
-import com.lme.marsexplorer.core.instruction.LeftInstruction;
-import com.lme.marsexplorer.core.instruction.RightInstruction;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.event.annotation.BeforeTestClass;
-import org.springframework.test.context.event.annotation.BeforeTestExecution;
-import org.springframework.test.context.event.annotation.BeforeTestMethod;
 
 import static org.assertj.core.api.Assertions.*;
 

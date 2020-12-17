@@ -1,25 +1,23 @@
-package com.lme.marsexplorer.core.instruction;
+package com.lme.marsexplorer.core;
 
-import com.lme.marsexplorer.core.*;
-
-public class LeftInstruction implements Instruction {
-    private char token = 'L';
+class RightInstruction implements Instruction {
+    private char token = 'R';
 
     public RobotState process(GridState gridState, RobotState robotState)  throws ProcessingException {
         Position position = robotState.getPosition();
         Orientation orientation = robotState.getOrientation();
         switch (orientation) {
             case N:
-                orientation = Orientation.W;
-                break;
-            case S:
                 orientation = Orientation.E;
                 break;
+            case S:
+                orientation = Orientation.W;
+                break;
             case E:
-                orientation = Orientation.N;
+                orientation = Orientation.S;
                 break;
             case W:
-                orientation = Orientation.S;
+                orientation = Orientation.N;
                 break;
         }
 

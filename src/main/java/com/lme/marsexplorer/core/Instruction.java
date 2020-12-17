@@ -1,4 +1,4 @@
-package com.lme.marsexplorer.core.instruction;
+package com.lme.marsexplorer.core;
 
 import com.lme.marsexplorer.core.GridState;
 import com.lme.marsexplorer.core.ProcessingException;

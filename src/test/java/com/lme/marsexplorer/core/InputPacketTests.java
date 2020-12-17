@@ -2,14 +2,10 @@ package com.lme.marsexplorer.core;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.event.annotation.BeforeTestExecution;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-
-import com.lme.marsexplorer.core.instruction.ForwardInstruction;
-import com.lme.marsexplorer.core.instruction.LeftInstruction;
-import com.lme.marsexplorer.core.instruction.RightInstruction;
 
 @SpringBootTest
 public class InputPacketTests {

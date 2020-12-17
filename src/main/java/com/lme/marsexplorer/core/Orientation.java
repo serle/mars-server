@@ -1,6 +1,6 @@
 package com.lme.marsexplorer.core;
 
-public enum Orientation {
+enum Orientation {
     N,S,E,W;
 
     static public Orientation toOrientation(String token) throws InputParseException {
