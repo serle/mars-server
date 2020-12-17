@@ -10,9 +10,19 @@ import com.lme.marsexplorer.core.instruction.ForwardInstruction;
 import com.lme.marsexplorer.core.instruction.LeftInstruction;
 import com.lme.marsexplorer.core.instruction.RightInstruction;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 
 @SpringBootTest
 public class RobotCommandTests {
+
+    private String createString(int length, char fill_char) {
+        char[] arr = new char[length];
+        Arrays.fill(arr, fill_char);
+        return new String(arr);
+    }
+
 
     @Test
     void add_robot_instructions() {
@@ -68,4 +78,36 @@ public class RobotCommandTests {
         //then
         assertThatExceptionOfType(InputParseException.class).isThrownBy(() -> new RobotCommand(firstLine, secondLine, extent));
     }
+
+
+    @Test
+    void parse_empty_instruction_string() {
+        // given
+        String firstLine = "1 1 E";
+        String secondLine = "";
+        GridExtent extent = new GridExtent(3, 5);
+        RobotCommand.addInstruction(new LeftInstruction());
+        RobotCommand.addInstruction(new RightInstruction());
+        RobotCommand.addInstruction(new ForwardInstruction());
+
+        //then
+        assertThatExceptionOfType(InputParseException.class).isThrownBy(() -> new RobotCommand(firstLine, secondLine, extent))
+                .withMessage("%s", "No instruction string");
+    }
+
+    @Test
+    void parse_instruction_string_exceeds_maximum_length() {
+        // given
+        String firstLine = "1 1 E";
+        String secondLine = this.createString(110, 'R');
+        GridExtent extent = new GridExtent(3, 5);
+        RobotCommand.addInstruction(new LeftInstruction());
+        RobotCommand.addInstruction(new RightInstruction());
+        RobotCommand.addInstruction(new ForwardInstruction());
+
+        //then
+        assertThatExceptionOfType(InputParseException.class).isThrownBy(() -> new RobotCommand(firstLine, secondLine, extent))
+                .withMessage("%s", "Instruction string length exceeded");
+    }
+
 }

@@ -9,9 +9,13 @@ import com.lme.marsexplorer.core.instruction.Instruction;
 
 
 class RobotCommand {
+    static private int MAX_INSTRUCTIONS_LENGTH = 100;
     static private HashMap<Character, Instruction> instructionMap = new HashMap<>();
 
     static private ArrayList<Character> toInstructionSequence(String instructions) throws InputParseException {
+        if (instructions == null || instructions.isEmpty()) throw new InputParseException("No instruction string");
+        if (instructions.length() > MAX_INSTRUCTIONS_LENGTH) throw new InputParseException("Instruction string length exceeded");
+
         ArrayList<Character> result = new ArrayList<>();
         HashSet<Character> invalids = new HashSet<>();
         for (char token : instructions.toCharArray()) {
