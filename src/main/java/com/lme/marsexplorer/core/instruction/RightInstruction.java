@@ -9,7 +9,7 @@ public class RightInstruction implements Instruction {
 
     public RobotState process(GridState gridState, RobotState robotState)  throws ProcessingException {
         //todo
-        return null;
+        throw new ProcessingException("Right: not Implemented yet");
     }
 
     public char getToken() {
