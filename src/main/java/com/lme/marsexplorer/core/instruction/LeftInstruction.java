@@ -1,15 +1,29 @@
 package com.lme.marsexplorer.core.instruction;
 
-import com.lme.marsexplorer.core.GridState;
-import com.lme.marsexplorer.core.ProcessingException;
-import com.lme.marsexplorer.core.RobotState;
+import com.lme.marsexplorer.core.*;
 
 public class LeftInstruction implements Instruction {
     private char token = 'L';
 
     public RobotState process(GridState gridState, RobotState robotState)  throws ProcessingException {
-        //todo
-        throw new ProcessingException("Left: not Implemented yet");
+        Position position = robotState.getPosition();
+        Orientation orientation = robotState.getOrientation();
+        switch (orientation) {
+            case N:
+                orientation = Orientation.W;
+                break;
+            case S:
+                orientation = Orientation.E;
+                break;
+            case E:
+                orientation = Orientation.N;
+                break;
+            case W:
+                orientation = Orientation.S;
+                break;
+        }
+
+        return new RobotState(position, orientation, false);
     }
 
     public char getToken() {

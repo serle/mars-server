@@ -14,29 +14,26 @@ public class Position {
 
         //set the max_x extent if its valid
         try {
-            this.x = Integer.parseInt(positionArr[0]);
+            x = Integer.parseInt(positionArr[0]);
         }
         catch (NumberFormatException e) {
-            throw new InputParseException("X coordinate is invalid");
+            throw new InputParseException("X extent coordinate is invalid");
         }
-        if (this.x < extent.getMinX() || this.x > extent.getMaxX()) throw new InputParseException("X coordinate out of range");
 
         //set the max_y extent if its valid
         try {
-            this.y = Integer.parseInt(positionArr[1]);
+            y = Integer.parseInt(positionArr[1]);
         }
         catch (NumberFormatException e){
-            throw new InputParseException("Y grid extent coordinate is invalid");
+            throw new InputParseException("Y extent coordinate is invalid");
         }
-        if (this.x < extent.getMinX() || this.x > extent.getMaxX()) throw new InputParseException("Y coordinate out of range");
+
+        if (extent.isOffGrid(x, y)) {
+            throw new InputParseException("Coordinate out of range");
+        }
     }
 
-
-
-    public Position(int x, int y, GridExtent extent) throws InvalidPositionException {
-        if (x < extent.getMinX() || x > extent.getMaxX()) throw new InvalidPositionException("X coordinate out of bounds");
-        if (y < extent.getMinY() || y > extent.getMaxY()) throw new InvalidPositionException("Y coordinate out of bounds");
-
+    public Position(int x, int y) {
         this.x = x;
         this.y = y;
     }

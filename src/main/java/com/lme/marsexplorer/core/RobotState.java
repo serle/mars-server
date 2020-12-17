@@ -3,9 +3,9 @@ package com.lme.marsexplorer.core;
 import java.util.Objects;
 
 public class RobotState {
-    public boolean isLost;
-    public Position position;
-    public Orientation orientation;
+    private boolean isLost;
+    private Position position;
+    private Orientation orientation;
 
     //stateStr: "1 1 E", check if positions within bounds
     public RobotState(String stateStr, GridExtent extent) throws InputParseException {
@@ -19,11 +19,30 @@ public class RobotState {
         this.orientation = Orientation.toOrientation(stateArr[2]);
     }
 
-    //used by processors to create the next state
+    //helper method for testing
+    public RobotState(String stateStr, GridExtent extent, boolean isLost) throws InputParseException {
+        this(stateStr, extent);
+        this.isLost = true;
+    }
+
+    public RobotState(int x, int y, Orientation orientation, boolean isLost) {
+        this.isLost = isLost;
+        this.position = new Position(x, y);
+        this.orientation = orientation;
+    }
+
     public RobotState(Position position, Orientation orientation, boolean isLost) {
         this.isLost = isLost;
         this.position = position;
         this.orientation = orientation;
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public Orientation getOrientation() {
+        return orientation;
     }
 
     //return the output string e.g.

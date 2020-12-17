@@ -63,6 +63,14 @@ class GridExtent {
         return min_y;
     }
 
+    public boolean isOnGrid(int x, int y) {
+        return (x >= min_x && x <= max_x) && (y >= min_y && y <= max_y);
+    }
+
+    public boolean isOffGrid(int x, int y) {
+        return !isOnGrid(x, y);
+    }
+
     public String toString() {
         return String.format("%d %d", max_x, max_y);
     }

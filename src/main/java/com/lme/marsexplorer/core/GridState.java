@@ -15,17 +15,30 @@ import java.util.HashSet;
 
  */
 public class GridState {
-    public GridExtent extent;
-    public HashSet<Position> smells;
+    private GridExtent extent;
+    private HashSet<Position> smells;
 
     GridState(String lineStr) throws InputParseException {
         this.extent = new GridExtent(lineStr);
         this.smells = new HashSet<>();
     }
 
-    public void addSmellAt(Position position) {
-        smells.add(position);
+    public GridExtent getExtent() {
+        return extent;
     }
+
+    public boolean isOnGrid(int x, int y) {
+        return extent.isOnGrid(x, y);
+    }
+
+    public void addSmellAt(int x, int y) {
+        smells.add(new Position(x, y));
+    }
+
+    public boolean isSmellAt(int x, int y) {
+        return smells.contains(new Position(x, y));
+    }
+
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
