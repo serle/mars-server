@@ -1,44 +1,72 @@
 package com.lme.marsexplorer.core;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.stream.Collectors;
 
 import com.lme.marsexplorer.core.instruction.Instruction;
 
 
-public class RobotCommand {
-    private static HashMap<Character, Instruction> instructionMap = new HashMap<>();
+class RobotCommand {
+    static private HashMap<Character, Instruction> instructionMap = new HashMap<>();
 
-    private RobotState initialState;
-    private String instructions;
+    static private ArrayList<Character> toInstructionSequence(String instructions) throws InputParseException {
+        ArrayList<Character> result = new ArrayList<>();
+        HashSet<Character> invalids = new HashSet<>();
+        for (char token : instructions.toCharArray()) {
+            if (instructionMap.containsKey(token)) {
+                result.add(token);
+            }
+            else {
+                invalids.add(token);
+            }
+        }
 
-    
-    public static void addInstruction(Instruction instruction) {
+        if (!invalids.isEmpty()) throw new InputParseException(String.format("Invalid robot instructions: %s", invalids.toString()));
+
+        return result;
+    }
+
+
+    /* we want a global instruction registration, so did not use builder pattern */
+    static public void addInstruction(Instruction instruction) {
         instructionMap.put(instruction.getToken(), instruction);
     }
 
-    public static void removeInstruction(Instruction instruction) {
-        instructionMap.remove(instruction.getToken());
+    static public void removeInstruction(char instructionToken) {
+        instructionMap.remove(instructionToken);
     }
 
-    public static boolean hasInstruction(Character token) {
+    static public boolean hasInstruction(Character token) {
         return instructionMap.containsKey(token);
     }
 
+    static public String getInstructionSet() {
+        return instructionMap.keySet().toString();
+    }
+
+    //------------------------------------------------------------------------------------------------------------------
+
+    private RobotState initialState;
+    private ArrayList<Character> instructions;
 
     //first line (position/orientation): "1 1 E"
     //second line (robot instructions): "RFRFRF"
-    //extent (grid extent)
-    //should throw if position coordinates out of bounds given the grid extent
-    //should throw if there are any command thant have not been added i.e. invalid
     public RobotCommand(String firstLine, String secondLine, GridExtent extent) throws InputParseException {
-        //todo
+        this.initialState = new RobotState(firstLine, extent);
+        this.instructions = RobotCommand.toInstructionSequence(secondLine);
     }
 
     //executes the instructions against the initialState, given the current grid state.
     //returns a new robot state and mutates the grid state with smells as necessary
-    public RobotState execute(GridState gridState) {
-        //todo
-        return null;
+    public RobotState execute(GridState gridState) throws ProcessingException {
+        RobotState robotState = this.initialState;
+        for (Character token: this.instructions) {
+            Instruction instruction = RobotCommand.instructionMap.get(token);
+            robotState = instruction.process(gridState, robotState);
+        }
+        return robotState;
     }
 
     //converts the command back into its original string
@@ -47,7 +75,7 @@ public class RobotCommand {
 
         sb.append(initialState.toString());
         sb.append("\n");
-        sb.append(instructions);
+        sb.append(instructions.stream().map(Object::toString).collect(Collectors.joining("")));
         sb.append("\n");
 
         return sb.toString();
