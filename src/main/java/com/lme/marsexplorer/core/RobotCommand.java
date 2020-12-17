@@ -38,7 +38,7 @@ class RobotCommand {
         instructionMap.remove(instructionToken);
     }
 
-    static public boolean hasInstruction(Character token) {
+    static public boolean hasInstruction(char token) {
         return instructionMap.containsKey(token);
     }
 
