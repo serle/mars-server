@@ -16,6 +16,7 @@ public class GridStateTests {
         // given
         String extentStr = "3 5";
 
+        // then
         assertThatCode(() -> {
             GridState ge = new GridState(extentStr);
         }).doesNotThrowAnyException();
@@ -26,22 +27,10 @@ public class GridStateTests {
         // given
         String extentStr = "3 5";
 
+        // then
         assertThatCode(() -> {
             GridState gs = new GridState(extentStr);
-            assertThat(gs.extent.toString()).isEqualTo("3 5");
+            assertThat(gs.toString()).isEqualTo("{\n  Extent: 3 5\n  Smells: [  ]\n}");
         }).doesNotThrowAnyException();
     }
-
-
-    @Test
-    void y_coordinate_greater_than_max() {
-        // given
-        String extentStr = "3 55";
-
-        // then
-        assertThatExceptionOfType(InputParseException.class).isThrownBy(() -> new GridExtent(extentStr))
-                .withMessage("%s", "Y grid extent coordinate out of range, should be in [0;50]");
-    }
-
-
 }
