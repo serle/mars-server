@@ -1,7 +1,5 @@
 package com.lme.marsexplorer.core;
 
-import org.springframework.lang.NonNull;
-
 import java.util.HashSet;
 
 
@@ -50,5 +48,4 @@ public class GridState {
 
         return sb.toString();
     }
-
 }
