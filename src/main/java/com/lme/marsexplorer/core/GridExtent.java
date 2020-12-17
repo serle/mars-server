@@ -40,6 +40,29 @@ class GridExtent {
         if (this.max_y > MAX_EXTENT || this.max_y < MIN_EXTENT) throw new InputParseException("Y grid extent coordinate out of range, should be in [0;50]");
     }
 
+    GridExtent(int maxX, int maxY) {
+        this.min_x = 0;
+        this.min_y = 0;
+        this.max_x = maxX;
+        this.max_y = maxY;
+    }
+
+    public int getMaxX() {
+        return max_x;
+    }
+
+    public int getMaxY() {
+        return max_y;
+    }
+
+    public int getMinX() {
+        return min_x;
+    }
+
+    public int getMinY() {
+        return min_y;
+    }
+
     public String toString() {
         return String.format("%d %d", max_x, max_y);
     }
